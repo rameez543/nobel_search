@@ -1,0 +1,25 @@
+.header{
+    color:#1f2220;
+    margin:20px
+}
+.layout{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.searchbar{
+    padding: 4px;
+    width: 100%;
+    
+}
+.btn {
+    position: relative;
+    display: inline-block;
+    font-size: 22px;
+    padding: 10px 30px;
+    color:#1f2220;
+    margin: 10px 5px 5px;
+    border-radius: 6px;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+}
