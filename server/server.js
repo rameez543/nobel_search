@@ -9,12 +9,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 function search(searchText) {
-    let person = personJson.laureates.filter(item =>
-        (searchText.toUpperCase().includes(`${item.firstname} ${item.surname}`.toUpperCase())) ||
-        (searchText.toUpperCase().includes(item.firstname && item.firstname.toUpperCase())) ||
-        (searchText.toUpperCase().includes(item.surname && item.surname.toUpperCase()))
+    let personArray = []
+    for (let person of personJson.laureates) {
+        if ((searchText.toUpperCase().includes(`${person.firstname} ${person.surname}`.toUpperCase()))) {
+            personArray = []
+            personArray.push(person)
+            break
 
-    )
+        }
+        if ((searchText.toUpperCase().includes(person.firstname && person.firstname.toUpperCase())) ||
+            (searchText.toUpperCase().includes(person.surname && person.surname.toUpperCase()))
+        ) {
+
+            personArray.push(person)
+        }
+
+    }
+
     let searchedResult = []
     let laureatesObject = []
     prizeJson.prizes.forEach(element => {
@@ -24,7 +35,7 @@ function search(searchText) {
     });
     // convert multiple dimensional array to array of objects
     laureatesObject = laureatesObject.reduce((r, e) => (r.push(...e), r), [])
-    for (let i of person) {
+    for (let i of personArray) {
         let personObject = {
             id: i.id,
             firstname: i.firstname,
@@ -68,4 +79,4 @@ app.post('/getResult', function (req, res) {
 
 })
 
-app.listen(port,()=>console.log(`server started in PORT ${port}`))
+app.listen(port, () => console.log(`server started in PORT ${port}`))
